@@ -33,6 +33,7 @@ install(TARGETS ${PROJECT_NAME}
   LIBRARY DESTINATION "lib"
   RUNTIME DESTINATION "bin")
 
+ament_export_include_directories("include")
 ament_export_libraries(${PROJECT_NAME})
 
 ament_package()
