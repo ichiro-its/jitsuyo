@@ -1,4 +1,3 @@
-#include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
 
@@ -9,6 +8,9 @@
 #include <vector>
 
 #include "jitsuyo/linux.hpp"
+
+namespace jitsuyo
+{
 
 std::string get_host_name()
 {
@@ -113,3 +115,5 @@ std::string split_string(std::string s, std::string del)
 
   return s.substr(start, end - start);
 }
+
+} // namespace jitsuyo

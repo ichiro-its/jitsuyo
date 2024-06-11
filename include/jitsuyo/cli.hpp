@@ -18,26 +18,47 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef JITSUYO__LINUX_HPP_
-#define JITSUYO__LINUX_HPP_
+#ifndef JITSUYO__CLI_HPP_
+#define JITSUYO__CLI_HPP_
 
 #include <string>
 
 namespace jitsuyo
 {
 
-std::string get_host_name();
-std::string get_env(std::string env);
-bool is_root();
+std::string uppercased(std::string str);
+std::string lowercased(std::string str);
 
-bool is_directory_exist(std::string path);
-bool create_directory(std::string path);
+void clear();
+void end_line();
 
-bool is_file_exist(std::string path);
-bool create_file(std::string path);
+void print_line();
 
-std::string split_string(std::string s, std::string del = " ");
+void print(std::string value);
+void print_error(std::string value);
+void print_block(std::string value);
+
+void print_parameter(std::string key, std::string value);
+void print_parameter(std::string key, bool value);
+void print_parameter(std::string key, int value);
+void print_parameter(std::string key, float value);
+
+void print_parameter_block(std::string key, std::string value);
+void print_parameter_block(std::string key, bool value);
+void print_parameter_block(std::string key, int value);
+void print_parameter_block(std::string key, float value);
+
+std::string reset();
+
+std::string fg_white();
+std::string fg_black();
+std::string fg_red();
+std::string fg_green();
+std::string fg_yellow();
+std::string fg_blue();
+std::string fg_magenta();
+std::string fg_cyan();
 
 } // namespace jitsuyo
 
-#endif  // JITSUYO__LINUX_HPP_
+#endif // JITSUYO__CLI_HPP_

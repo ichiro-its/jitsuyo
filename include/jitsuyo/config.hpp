@@ -18,26 +18,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef JITSUYO__LINUX_HPP_
-#define JITSUYO__LINUX_HPP_
-
-#include <string>
+#ifndef JITSUYO__CONFIG_HPP_
+#define JITSUYO__CONFIG_HPP_
 
 namespace jitsuyo
 {
 
-std::string get_host_name();
-std::string get_env(std::string env);
-bool is_root();
-
-bool is_directory_exist(std::string path);
-bool create_directory(std::string path);
-
-bool is_file_exist(std::string path);
-bool create_file(std::string path);
-
-std::string split_string(std::string s, std::string del = " ");
+template <typename T>
+bool check_val(const nlohmann::json & i, const std::string& key, T& val);
 
 } // namespace jitsuyo
 
-#endif  // JITSUYO__LINUX_HPP_
+#endif // JITSUYO__CONFIG_HPP_
