@@ -18,47 +18,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef JITSUYO__CLI_HPP_
-#define JITSUYO__CLI_HPP_
+#ifndef JITSUYO__JITSUYO_HPP_
+#define JITSUYO__JITSUYO_HPP_
 
-#include <string>
+#include "jitsuyo/cli.hpp"
+#include "jitsuyo/config.hpp"
+#include "jitsuyo/linux.hpp"
 
-namespace jitsuyo
-{
-
-std::string uppercased(std::string str);
-std::string lowercased(std::string str);
-
-void clear();
-void end_line();
-
-void print_line();
-
-void print(std::string value);
-void print_error(std::string value);
-void print_block(std::string value);
-
-void print_parameter(std::string key, std::string value);
-void print_parameter(std::string key, bool value);
-void print_parameter(std::string key, int value);
-void print_parameter(std::string key, float value);
-
-void print_parameter_block(std::string key, std::string value);
-void print_parameter_block(std::string key, bool value);
-void print_parameter_block(std::string key, int value);
-void print_parameter_block(std::string key, float value);
-
-std::string reset();
-
-std::string fg_white();
-std::string fg_black();
-std::string fg_red();
-std::string fg_green();
-std::string fg_yellow();
-std::string fg_blue();
-std::string fg_magenta();
-std::string fg_cyan();
-
-}  // namespace jitsuyo
-
-#endif  // JITSUYO__CLI_HPP_
+#endif  // JITSUYO__JITSUYO_HPP_

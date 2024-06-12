@@ -21,12 +21,15 @@
 #ifndef JITSUYO__CONFIG_HPP_
 #define JITSUYO__CONFIG_HPP_
 
+#include <string>
+#include <nlohmann/json.hpp>
+
 namespace jitsuyo
 {
 
-template <typename T>
-bool check_val(const nlohmann::json & i, const std::string& key, T& val);
+template<typename T>
+bool check_val(const nlohmann::json & i, const std::string & key, T & val);
 
-} // namespace jitsuyo
+}  // namespace jitsuyo
 
-#endif // JITSUYO__CONFIG_HPP_
+#endif  // JITSUYO__CONFIG_HPP_

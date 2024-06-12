@@ -27,17 +27,17 @@ namespace jitsuyo
 {
 
 std::string get_host_name();
-std::string get_env(std::string env);
+std::string get_env(const std::string & env);
 bool is_root();
 
-bool is_directory_exist(std::string path);
-bool create_directory(std::string path);
+bool is_directory_exist(const std::string & path);
+bool create_directory(const std::string & path);
 
-bool is_file_exist(std::string path);
-bool create_file(std::string path);
+bool is_file_exist(const std::string & path);
+bool create_file(const std::string & path);
 
-std::string split_string(std::string s, std::string del = " ");
+std::string split_string(const std::string & s, const std::string & del = " ");
 
-} // namespace jitsuyo
+}  // namespace jitsuyo
 
 #endif  // JITSUYO__LINUX_HPP_
