@@ -1,4 +1,4 @@
-// Copyright (c) 2024 mob ITS
+// Copyright (c) 2024 ichiro ITS
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -26,13 +26,13 @@
 
 TEST(LinuxTest, HostName)
 {
-  EXPECT_EQ(jitsuyo::get_host_name(), std::string("mob-vm")) << "Host name must be mob";
+  EXPECT_EQ(jitsuyo::get_host_name(), std::string("ichiro")) << "Host name must be ichiro";
 }
 
 TEST(LinuxTest, EnvironmentVariable)
 {
-  EXPECT_EQ(jitsuyo::get_env(std::string("HOME")), std::string("/home/mob"))
-    << "Home directory must be /home/mob";
+  EXPECT_EQ(jitsuyo::get_env(std::string("HOME")), std::string("/home/ichiro"))
+    << "Home directory must be /home/ichiro";
   EXPECT_EQ(jitsuyo::get_env(std::string("ROS_DISTRO")), std::string("iron"))
     << "ROS distro must be iron";
 }
@@ -44,26 +44,26 @@ TEST(LinuxTest, RootUser)
 
 TEST(LinuxTest, DirectoryExist)
 {
-  EXPECT_TRUE(jitsuyo::is_directory_exist(std::string("/home/mob"))) << "Home directory must exist";
-  EXPECT_TRUE(jitsuyo::is_directory_exist(std::string("/home/mob/ros2-ws")))
+  EXPECT_TRUE(jitsuyo::is_directory_exist(std::string("/home/ichiro"))) << "Home directory must exist";
+  EXPECT_TRUE(jitsuyo::is_directory_exist(std::string("/home/ichiro/ros2-ws")))
     << "ROS 2 workspace must exist";
 }
 
 TEST(LinuxTest, CreateDirectory)
 {
-  EXPECT_TRUE(jitsuyo::create_directory(std::string("/home/mob/ros2-ws/src/jitsuyo/test/test")))
+  EXPECT_TRUE(jitsuyo::create_directory(std::string("/home/ichiro/ros2-ws/src/jitsuyo/test/test")))
     << "Test directory must be created";
 }
 
 TEST(LinuxTest, FileExist)
 {
-  EXPECT_TRUE(jitsuyo::is_file_exist(std::string("/home/mob/ros2-ws/src/jitsuyo/CMakeLists.txt")))
+  EXPECT_TRUE(jitsuyo::is_file_exist(std::string("/home/ichiro/ros2-ws/src/jitsuyo/CMakeLists.txt")))
     << "CMake file must exist";
 }
 
 TEST(LinuxTest, CreateFile)
 {
-  EXPECT_TRUE(jitsuyo::create_file(std::string("/home/mob/ros2-ws/src/jitsuyo/test/test.txt")))
+  EXPECT_TRUE(jitsuyo::create_file(std::string("/home/ichiro/ros2-ws/src/jitsuyo/test/test.txt")))
     << "Test file must be created";
 }
 
