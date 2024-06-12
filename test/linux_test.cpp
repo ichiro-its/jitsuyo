@@ -1,4 +1,4 @@
-// Copyright (c) 2024 ichiro ITS
+// Copyright (c) 2024 ICHIRO ITS
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -44,7 +44,8 @@ TEST(LinuxTest, RootUser)
 
 TEST(LinuxTest, DirectoryExist)
 {
-  EXPECT_TRUE(jitsuyo::is_directory_exist(std::string("/home/ichiro"))) << "Home directory must exist";
+  EXPECT_TRUE(jitsuyo::is_directory_exist(std::string("/home/ichiro"))) <<
+    "Home directory must exist";
   EXPECT_TRUE(jitsuyo::is_directory_exist(std::string("/home/ichiro/ros2-ws")))
     << "ROS 2 workspace must exist";
 }
@@ -57,7 +58,9 @@ TEST(LinuxTest, CreateDirectory)
 
 TEST(LinuxTest, FileExist)
 {
-  EXPECT_TRUE(jitsuyo::is_file_exist(std::string("/home/ichiro/ros2-ws/src/jitsuyo/CMakeLists.txt")))
+  EXPECT_TRUE(
+    jitsuyo::is_file_exist(
+      std::string("/home/ichiro/ros2-ws/src/jitsuyo/CMakeLists.txt")))
     << "CMake file must exist";
 }
 
