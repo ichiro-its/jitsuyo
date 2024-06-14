@@ -42,7 +42,7 @@ if(BUILD_TESTING)
 
   ament_add_gtest(${PROJECT_NAME}_tests
     "test/linux_test.cpp"
-    # "test/config_test.cpp"
+    "test/config_test.cpp"
     "test/cli_test.cpp")
 
   target_include_directories(${PROJECT_NAME}_tests PUBLIC
