@@ -21,6 +21,7 @@
 #ifndef JITSUYO__CONFIG_HPP_
 #define JITSUYO__CONFIG_HPP_
 
+#include <fstream>
 #include <string>
 #include <nlohmann/json.hpp>
 
@@ -37,13 +38,24 @@ bool check_val(const nlohmann::json & i, const std::string & key, T & val)
   return false;
 }
 
-bool save_config(
+template<typename T>
+typename std::enable_if<std::is_same<T, nlohmann::json>::value ||
+  std::is_same<T, nlohmann::ordered_json>::value, bool>::type
+save_config(
   const std::string & path, const std::string & file_name,
-  const nlohmann::json & data);
-bool save_config(
-  const std::string & path, const std::string & file_name,
-  const std::string & data_str);
-nlohmann::json load_config(const std::string & path, const std::string & file_name);
+  const T & data)
+{
+  std::ofstream file(path + file_name, std::ios::out | std::ios::trunc);
+  file << std::setw(2) << data << std::endl;
+  file.close();
+  return true;
+}
+
+nlohmann::json parse_json(const std::string & data_str);
+nlohmann::json load_config(
+  const std::string & path, const std::string & file_name);
+nlohmann::ordered_json load_ordered_config(
+  const std::string & path, const std::string & file_name);
 
 }  // namespace jitsuyo
 

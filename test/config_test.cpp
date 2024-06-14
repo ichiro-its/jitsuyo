@@ -47,13 +47,23 @@ TEST(ConfigTest, SaveConfigJson)
     << "Config must be saved";
 }
 
-TEST(ConfigTest, SaveConfigString)
+TEST(ConfigTest, SaveConfigOrderedJson)
 {
-  std::string data_str = R"({ "key": 42 })";
+  nlohmann::ordered_json data;
+  data["key"] = 42;
 
   EXPECT_TRUE(
-    jitsuyo::save_config(std::string("/tmp/"), std::string("config.json"), data_str))
+    jitsuyo::save_config(std::string("/tmp/"), std::string("config.json"), data))
     << "Config must be saved";
+}
+
+TEST(ConfigTest, ParseJson)
+{
+  std::string data_str = R"({"key": 42})";
+  nlohmann::json parsed_data = jitsuyo::parse_json(data_str);
+
+  EXPECT_TRUE(parsed_data.contains("key")) << "Key must exist";
+  EXPECT_EQ(parsed_data["key"], 42);
 }
 
 TEST(ConfigTest, LoadConfig)

@@ -28,19 +28,7 @@
 namespace jitsuyo
 {
 
-bool save_config(
-  const std::string & path, const std::string & file_name,
-  const nlohmann::json & data)
-{
-  std::ofstream file(path + file_name, std::ios::out | std::ios::trunc);
-  file << std::setw(2) << data << std::endl;
-  file.close();
-  return true;
-}
-
-bool save_config(
-  const std::string & path, const std::string & file_name,
-  const std::string & data_str)
+nlohmann::json parse_json(const std::string & data_str)
 {
   nlohmann::json data;
 
@@ -50,7 +38,7 @@ bool save_config(
     throw e;
   }
 
-  return save_config(path, file_name, data);
+  return data;
 }
 
 nlohmann::json load_config(const std::string & path, const std::string & file_name)
@@ -65,7 +53,27 @@ nlohmann::json load_config(const std::string & path, const std::string & file_na
   try {
     data = nlohmann::json::parse(file);
   } catch (const nlohmann::json::parse_error & e) {
-    throw e; 
+    throw e;
+  }
+
+  file.close();
+  return data;
+}
+
+nlohmann::ordered_json load_ordered_config(
+  const std::string & path, const std::string & file_name)
+{
+  if (path.empty() || file_name.empty() || !is_directory_exist(path)) {
+    return nlohmann::ordered_json();
+  }
+
+  std::ifstream file(path + file_name);
+  nlohmann::ordered_json data;
+
+  try {
+    data = nlohmann::ordered_json::parse(file);
+  } catch (const nlohmann::json::parse_error & e) {
+    throw e;
   }
 
   file.close();
