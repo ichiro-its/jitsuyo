@@ -41,7 +41,8 @@ bool save_config(
   const std::string & path, const std::string & file_name,
   const nlohmann::json & data);
 bool save_config(
-  const std::string & path, const std::string & file_name);
+  const std::string & path, const std::string & file_name,
+  const std::string & data);
 nlohmann::json load_config(const std::string & path, const std::string & file_name);
 
 }  // namespace jitsuyo
