@@ -23,6 +23,7 @@
 #include <fstream>
 #include <string>
 #include <nlohmann/json.hpp>
+#include "jitsuyo/linux.hpp"
 
 namespace jitsuyo
 {
@@ -31,11 +32,22 @@ bool save_config(
   const std::string & path, const std::string & file_name,
   const nlohmann::json & data)
 {
-  if (path.empty() || file_name.empty() || data.empty()) {
+  std::string parsed_path = path;
+  std::string parsed_file_name = file_name;
+
+  if (path.back() != '/') {
+    parsed_path += '/';
+  }
+
+  if (file_name.find(".json") == std::string::npos) {
+    parsed_file_name += ".json";
+  }
+
+  if (path.empty() || file_name.empty() || data.empty() || !is_directory_exist(path)) {
     return false;
   }
 
-  std::ofstream file(path + file_name, std::ios::out | std::ios::trunc);
+  std::ofstream file(parsed_path + parsed_file_name, std::ios::out | std::ios::trunc);
   file << std::setw(2) << data << std::endl;
   file.close();
   return true;
@@ -43,10 +55,6 @@ bool save_config(
 
 bool save_config(const std::string & path, const std::string & file_name)
 {
-  if (path.empty() || file_name.empty()) {
-    return false;
-  }
-
   nlohmann::json data = nlohmann::json::parse(file_name);
   return save_config(path, file_name, data);
 }

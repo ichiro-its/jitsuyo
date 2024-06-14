@@ -52,7 +52,7 @@ TEST(LinuxTest, DirectoryExist)
 
 TEST(LinuxTest, CreateDirectory)
 {
-  EXPECT_TRUE(jitsuyo::create_directory(std::string("/home/ichiro/ros2-ws/src/jitsuyo/test/test")))
+  EXPECT_TRUE(jitsuyo::create_directory(std::string("/tmp/test")))
     << "Test directory must be created";
 }
 
