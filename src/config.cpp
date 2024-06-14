@@ -38,9 +38,11 @@ bool save_config(
   return true;
 }
 
-bool save_config(const std::string & path, const std::string & file_name, const std::string & data)
+bool save_config(
+  const std::string & path, const std::string & file_name,
+  const std::string & data_str)
 {
-  nlohmann::json data = nlohmann::json::parse(file_name);
+  nlohmann::json data = nlohmann::json::parse(data_str);
   return save_config(path, file_name, data);
 }
 
