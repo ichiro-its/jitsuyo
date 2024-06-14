@@ -46,3 +46,11 @@ TEST(ConfigTest, SaveConfig)
     jitsuyo::save_config(std::string("/tmp/"), std::string("config.json"), data))
     << "Config must be saved";
 }
+
+TEST(ConfigTest, LoadConfig)
+{
+  nlohmann::json data = jitsuyo::load_config(std::string("/tmp/"), std::string("config.json"));
+
+  EXPECT_TRUE(data.contains("key")) << "Key must exist";
+  EXPECT_EQ(data["key"], 42);
+}
