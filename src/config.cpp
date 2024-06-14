@@ -42,25 +42,32 @@ bool save_config(
   const std::string & path, const std::string & file_name,
   const std::string & data_str)
 {
-  nlohmann::json data = nlohmann::json::parse(data_str);
+  nlohmann::json data;
+
+  try {
+    data = nlohmann::json::parse(data_str);
+  } catch (const nlohmann::json::parse_error & e) {
+    throw e;
+  }
+
   return save_config(path, file_name, data);
 }
 
 nlohmann::json load_config(const std::string & path, const std::string & file_name)
 {
-  std::string parsed_path = path;
-  std::string parsed_file_name = file_name;
-
-  if (path.back() != '/') {
-    parsed_path += '/';
-  }
-
   if (path.empty() || file_name.empty() || !is_directory_exist(path)) {
     return nlohmann::json();
   }
 
-  std::ifstream file(parsed_path + parsed_file_name);
-  nlohmann::json data = nlohmann::json::parse(file);
+  std::ifstream file(path + file_name);
+  nlohmann::json data;
+
+  try {
+    data = nlohmann::json::parse(file);
+  } catch (const nlohmann::json::parse_error & e) {
+    throw e; 
+  }
+
   file.close();
   return data;
 }
