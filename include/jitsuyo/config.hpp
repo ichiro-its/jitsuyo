@@ -37,6 +37,12 @@ bool check_val(const nlohmann::json & i, const std::string & key, T & val)
   return false;
 }
 
+bool save_config(
+  const std::string & path, const std::string & file_name,
+  const nlohmann::json & data);
+bool save_config(
+  const std::string & path, const std::string & file_name);
+
 }  // namespace jitsuyo
 
 #endif  // JITSUYO__CONFIG_HPP_

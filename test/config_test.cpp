@@ -36,3 +36,12 @@ TEST(ConfigTest, CheckVal)
 
   EXPECT_FALSE(jitsuyo::check_val(j, std::string("no_key"), val)) << "Key must not exist";
 }
+
+TEST(ConfigTest, SaveConfig)
+{
+  nlohmann::json data;
+  data["key"] = 42;
+
+  EXPECT_TRUE(jitsuyo::save_config(std::string("/tmp/"), std::string("config.json"), data))
+    << "Config must be saved";
+}

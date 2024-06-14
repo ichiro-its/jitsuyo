@@ -66,7 +66,7 @@ TEST(LinuxTest, FileExist)
 
 TEST(LinuxTest, CreateFile)
 {
-  EXPECT_TRUE(jitsuyo::create_file(std::string("/home/ichiro/ros2-ws/src/jitsuyo/test/test.txt")))
+  EXPECT_TRUE(jitsuyo::create_file(std::string("/tmp/test.txt")))
     << "Test file must be created";
 }
 
