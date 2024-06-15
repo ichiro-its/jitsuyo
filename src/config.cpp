@@ -18,11 +18,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#include "jitsuyo/config.hpp"
-
 #include <fstream>
 #include <string>
 #include <nlohmann/json.hpp>
+
+#include "jitsuyo/config.hpp"
 #include "jitsuyo/linux.hpp"
 
 namespace jitsuyo

@@ -18,22 +18,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#include <string>
+#include <nlohmann/json.hpp>
+
 #include "gtest/gtest.h"
 #include "jitsuyo/config.hpp"
 
-#include <nlohmann/json.hpp>
-#include <string>
-
-TEST(ConfigTest, CheckVal)
+TEST(ConfigTest, FindKey)
 {
   nlohmann::json j;
   j["key"] = 42;
 
   int val;
-  EXPECT_TRUE(jitsuyo::check_val(j, std::string("key"), val)) << "Key must exist";
-  EXPECT_EQ(val, 42);
-
-  EXPECT_FALSE(jitsuyo::check_val(j, std::string("no_key"), val)) << "Key must not exist";
+  EXPECT_EQ(jitsuyo::find_key(j, std::string("key"), val), 42) << "Key must exist";
 }
 
 TEST(ConfigTest, SaveConfigJson)

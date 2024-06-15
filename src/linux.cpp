@@ -18,8 +18,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#include "jitsuyo/linux.hpp"
-
 #include <sys/stat.h>
 #include <unistd.h>
 
@@ -28,6 +26,8 @@
 #include <sstream>
 #include <string>
 #include <vector>
+
+#include "jitsuyo/linux.hpp"
 
 namespace jitsuyo
 {

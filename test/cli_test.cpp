@@ -18,10 +18,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#include <string>
+
 #include "gtest/gtest.h"
 #include "jitsuyo/cli.hpp"
-
-#include <string>
 
 TEST(CliTest, Uppercased)
 {

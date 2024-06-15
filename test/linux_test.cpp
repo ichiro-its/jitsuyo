@@ -18,10 +18,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#include <string>
+
 #include "gtest/gtest.h"
 #include "jitsuyo/linux.hpp"
-
-#include <string>
 
 TEST(LinuxTest, EnvironmentVariable)
 {

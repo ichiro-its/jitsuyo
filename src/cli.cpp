@@ -18,10 +18,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#include "jitsuyo/cli.hpp"
-
 #include <iomanip>
 #include <iostream>
+
+#include "jitsuyo/cli.hpp"
 
 namespace jitsuyo
 {
