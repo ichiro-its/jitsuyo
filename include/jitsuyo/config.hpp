@@ -29,13 +29,16 @@ namespace jitsuyo
 {
 
 template<typename T>
-bool check_val(const nlohmann::json & i, const std::string & key, T & val)
+T find_key(const nlohmann::json & i, const std::string & key, T & val)
 {
-  if (i.contains(key)) {
-    i.at(key).get_to(val);
-    return true;
+  try {
+    if (i.contains(key)) {
+      T value = i.at(key).get_to(val);
+      return value;
+    }
+  } catch (const nlohmann::json::exception & e) {
+    throw e;
   }
-  return false;
 }
 
 template<typename T>
