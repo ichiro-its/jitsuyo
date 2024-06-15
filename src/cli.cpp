@@ -57,37 +57,37 @@ void print_line()
             << "================================================================" << std::endl;
 }
 
-void print(std::string value) {std::cout << value << std::endl;}
+void print(const std::string & value) {std::cout << value << std::endl;}
 
-void print_error(std::string value) {std::cout << fg_red() << value << std::endl;}
+void print_error(const std::string & value) {std::cout << fg_red() << value << std::endl;}
 
-void print_block(std::string value)
+void print_block(const std::string & value)
 {
   std::cout << fg_white() << "[ ";
   std::cout << fg_blue() << uppercased(value);
   std::cout << fg_white() << " ]" << std::endl;
 }
 
-void print_parameter(std::string key, std::string value)
+void print_parameter(const std::string & key, const std::string & value)
 {
   std::cout << key << ": " << fg_yellow() << value << reset() << std::endl;
 }
 
-void print_parameter(std::string key, bool value)
+void print_parameter(const std::string & key, bool value)
 {
   std::stringstream ss;
   ss << std::boolalpha << value << std::noboolalpha;
   print_parameter(key, ss.str());
 }
 
-void print_parameter(std::string key, int value)
+void print_parameter(const std::string & key, int value)
 {
   std::stringstream ss;
   ss << value;
   print_parameter(key, ss.str());
 }
 
-void print_parameter(std::string key, float value)
+void print_parameter(const std::string & key, float value)
 {
   std::stringstream ss;
   ss << std::fixed << std::setprecision(2);
@@ -95,7 +95,7 @@ void print_parameter(std::string key, float value)
   print_parameter(key, ss.str());
 }
 
-void print_parameter_block(std::string key, std::string value)
+void print_parameter_block(const std::string & key, const std::string & value)
 {
   std::cout << fg_white() << "[ ";
   std::cout << fg_blue() << uppercased(key);
@@ -104,21 +104,21 @@ void print_parameter_block(std::string key, std::string value)
   std::cout << fg_white() << " ] " << reset();
 }
 
-void print_parameter_block(std::string key, bool value)
+void print_parameter_block(const std::string & key, bool value)
 {
   std::stringstream ss;
   ss << std::boolalpha << value << std::noboolalpha;
   print_parameter_block(key, ss.str());
 }
 
-void print_parameter_block(std::string key, int value)
+void print_parameter_block(const std::string & key, int value)
 {
   std::stringstream ss;
   ss << value;
   print_parameter_block(key, ss.str());
 }
 
-void print_parameter_block(std::string key, float value)
+void print_parameter_block(const std::string & key, float value)
 {
   std::stringstream ss;
   ss << std::fixed << std::setprecision(2);

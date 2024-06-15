@@ -29,16 +29,16 @@ namespace jitsuyo
 {
 
 template<typename T>
-T find_key(const nlohmann::json & i, const std::string & key, T & val)
-{
+bool assign_key(const nlohmann::json & i, const std::string & key, T& val) {
   try {
     if (i.contains(key)) {
-      T value = i.at(key).get_to(val);
-      return value;
+      i.at(key).get_to(val);
+      return true;
     }
-  } catch (const nlohmann::json::exception & e) {
+  } catch (const std::exception & e) {
     throw e;
   }
+  return false;
 }
 
 template<typename T>
@@ -54,7 +54,6 @@ save_config(
   return true;
 }
 
-nlohmann::json parse_json(const std::string & data_str);
 nlohmann::json load_config(
   const std::string & path, const std::string & file_name);
 nlohmann::ordered_json load_ordered_config(

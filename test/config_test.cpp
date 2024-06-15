@@ -24,13 +24,14 @@
 #include "gtest/gtest.h"
 #include "jitsuyo/config.hpp"
 
-TEST(ConfigTest, FindKey)
+TEST(ConfigTest, AssignKey)
 {
   nlohmann::json j;
   j["key"] = 42;
 
   int val;
-  EXPECT_EQ(jitsuyo::find_key(j, std::string("key"), val), 42) << "Key must exist";
+  EXPECT_TRUE(jitsuyo::assign_key(j, "key", val)) << "Key must be assigned";
+  EXPECT_EQ(val, 42) << "Value must be 42";
 }
 
 TEST(ConfigTest, SaveConfigJson)
@@ -51,15 +52,6 @@ TEST(ConfigTest, SaveConfigOrderedJson)
   EXPECT_TRUE(
     jitsuyo::save_config(std::string("/tmp/"), std::string("config.json"), data))
     << "Config must be saved";
-}
-
-TEST(ConfigTest, ParseJson)
-{
-  std::string data_str = R"({"key": 42})";
-  nlohmann::json parsed_data = jitsuyo::parse_json(data_str);
-
-  EXPECT_TRUE(parsed_data.contains("key")) << "Key must exist";
-  EXPECT_EQ(parsed_data["key"], 42);
 }
 
 TEST(ConfigTest, LoadConfig)

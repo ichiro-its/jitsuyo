@@ -34,19 +34,19 @@ void end_line();
 
 void print_line();
 
-void print(std::string value);
-void print_error(std::string value);
-void print_block(std::string value);
+void print(const std::string & value);
+void print_error(const std::string & value);
+void print_block(const std::string & value);
 
-void print_parameter(std::string key, std::string value);
-void print_parameter(std::string key, bool value);
-void print_parameter(std::string key, int value);
-void print_parameter(std::string key, float value);
+void print_parameter(const std::string & key, const std::string & value);
+void print_parameter(const std::string & key, bool value);
+void print_parameter(const std::string & key, int value);
+void print_parameter(const std::string & key, float value);
 
-void print_parameter_block(std::string key, std::string value);
-void print_parameter_block(std::string key, bool value);
-void print_parameter_block(std::string key, int value);
-void print_parameter_block(std::string key, float value);
+void print_parameter_block(const std::string & key, const std::string & value);
+void print_parameter_block(const std::string & key, bool value);
+void print_parameter_block(const std::string & key, int value);
+void print_parameter_block(const std::string & key, float value);
 
 std::string reset();
 
