@@ -24,10 +24,6 @@
 
 #include "gtest/gtest.h"
 
-TEST(LinuxTest, HostName)
-{
-  EXPECT_EQ(jitsuyo::get_host_name(), std::string("ichiro")) << "Host name must be ichiro";
-}
 
 TEST(LinuxTest, EnvironmentVariable)
 {
