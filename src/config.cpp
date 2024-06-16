@@ -31,7 +31,7 @@ nlohmann::json load_config(const std::string & path, const std::string & file_na
 {
   std::ifstream file(path + file_name);
   if (!file.is_open()) {
-    return nlohmann::json();
+    return {};
   }
 
   nlohmann::json data = nlohmann::json::parse(file);
@@ -45,7 +45,7 @@ nlohmann::ordered_json load_ordered_config(
 {
   std::ifstream file(path + file_name);
   if (!file.is_open()) {
-    return nlohmann::ordered_json();
+    return {};
   }
 
   nlohmann::ordered_json data = nlohmann::ordered_json::parse(file);

@@ -29,9 +29,10 @@ namespace jitsuyo
 {
 
 template<typename T>
-bool assign_key(const nlohmann::json & i, const std::string & key, T& val) {
-  if (i.contains(key)) {
-    i.at(key).get_to(val);
+bool assign_key(const nlohmann::json & i, const std::string & key, T & val) {
+  auto it = i.find(key);
+  if (it != i.end()) {
+    i->get_to(val);
     return true;
   }
   return false;
