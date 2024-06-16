@@ -30,13 +30,9 @@ namespace jitsuyo
 
 template<typename T>
 bool assign_key(const nlohmann::json & i, const std::string & key, T& val) {
-  try {
-    if (i.contains(key)) {
-      i.at(key).get_to(val);
-      return true;
-    }
-  } catch (const std::exception & e) {
-    throw e;
+  if (i.contains(key)) {
+    i.at(key).get_to(val);
+    return true;
   }
   return false;
 }

@@ -29,11 +29,9 @@ namespace jitsuyo
 
 nlohmann::json load_config(const std::string & path, const std::string & file_name)
 {
-  std::ifstream file;
-  try {
-    file.open(path + file_name);
-  } catch (const std::ifstream::failure & e) {
-    throw e;
+  std::ifstream file(path + file_name);
+  if (!file.is_open()) {
+    return nlohmann::json();
   }
 
   nlohmann::json data = nlohmann::json::parse(file);
@@ -45,11 +43,9 @@ nlohmann::json load_config(const std::string & path, const std::string & file_na
 nlohmann::ordered_json load_ordered_config(
   const std::string & path, const std::string & file_name)
 {
-  std::ifstream file;
-  try {
-    file.open(path + file_name);
-  } catch (const std::ifstream::failure & e) {
-    throw e;
+  std::ifstream file(path + file_name);
+  if (!file.is_open()) {
+    return nlohmann::ordered_json();
   }
 
   nlohmann::ordered_json data = nlohmann::ordered_json::parse(file);
