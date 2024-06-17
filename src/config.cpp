@@ -23,38 +23,18 @@
 #include <nlohmann/json.hpp>
 
 #include "jitsuyo/config.hpp"
-#include "jitsuyo/linux.hpp"
 
 namespace jitsuyo
 {
 
-nlohmann::json parse_json(const std::string & data_str)
-{
-  nlohmann::json data;
-
-  try {
-    data = nlohmann::json::parse(data_str);
-  } catch (const nlohmann::json::parse_error & e) {
-    throw e;
-  }
-
-  return data;
-}
-
 nlohmann::json load_config(const std::string & path, const std::string & file_name)
 {
-  if (path.empty() || file_name.empty() || !is_directory_exist(path)) {
-    return nlohmann::json();
-  }
-
   std::ifstream file(path + file_name);
-  nlohmann::json data;
-
-  try {
-    data = nlohmann::json::parse(file);
-  } catch (const nlohmann::json::parse_error & e) {
-    throw e;
+  if (!file.is_open()) {
+    return {};
   }
+
+  nlohmann::json data = nlohmann::json::parse(file);
 
   file.close();
   return data;
@@ -63,18 +43,12 @@ nlohmann::json load_config(const std::string & path, const std::string & file_na
 nlohmann::ordered_json load_ordered_config(
   const std::string & path, const std::string & file_name)
 {
-  if (path.empty() || file_name.empty() || !is_directory_exist(path)) {
-    return nlohmann::ordered_json();
-  }
-
   std::ifstream file(path + file_name);
-  nlohmann::ordered_json data;
-
-  try {
-    data = nlohmann::ordered_json::parse(file);
-  } catch (const nlohmann::json::parse_error & e) {
-    throw e;
+  if (!file.is_open()) {
+    return {};
   }
+
+  nlohmann::ordered_json data = nlohmann::ordered_json::parse(file);
 
   file.close();
   return data;
