@@ -49,6 +49,10 @@ save_config(
   const T & data)
 {
   std::ofstream file(path + file_name, std::ios::out | std::ios::trunc);
+  if (!file.is_open()) {
+    return false;
+  }
+  
   file << std::setw(2) << data << std::endl;
   file.close();
   return true;
