@@ -27,11 +27,18 @@
 TEST(ConfigTest, AssignKey)
 {
   nlohmann::json j;
-  j["key"] = 42;
+  j["test"] = 42;
 
   int val;
-  EXPECT_TRUE(jitsuyo::assign_key(j, "key", val)) << "Key must be assigned";
+  EXPECT_TRUE(jitsuyo::assign_val(j, "test", val)) << "Key must be assigned";
   EXPECT_EQ(val, 42) << "Value must be 42";
+
+  testing::internal::CaptureStdout();
+  EXPECT_FALSE(jitsuyo::assign_val(j, "test1", val)) << "Key must not be assigned";
+  std::string output = testing::internal::GetCapturedStdout();
+  EXPECT_EQ(
+    output,
+    std::string("Key test1 not found\n")) << "Key must not be found";
 }
 
 TEST(ConfigTest, SaveConfigJson)

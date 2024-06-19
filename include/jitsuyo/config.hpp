@@ -23,19 +23,21 @@
 
 #include <fstream>
 #include <string>
+#include <iostream>
 #include <nlohmann/json.hpp>
 
 namespace jitsuyo
 {
 
 template<typename T>
-bool assign_key(const nlohmann::json & i, const std::string & key, T & val)
+bool assign_val(const nlohmann::json & i, const std::string & key, T & val)
 {
   auto it = i.find(key);
   if (it != i.end()) {
     it->get_to(val);
     return true;
   }
+  std::cout << "Failed to assign key " << key << " to value " << val << std::endl;
   return false;
 }
 
