@@ -38,7 +38,7 @@ TEST(ConfigTest, AssignKey)
   std::string output = testing::internal::GetCapturedStdout();
   EXPECT_EQ(
     output,
-    std::string("Key test1 not found\n")) << "Key must not be found";
+    std::string("Failed to assign key test1 to value 42\n")) << "Key must not be found";
 }
 
 TEST(ConfigTest, SaveConfigJson)
