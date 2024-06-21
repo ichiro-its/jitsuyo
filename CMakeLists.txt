@@ -17,7 +17,6 @@ install(DIRECTORY include DESTINATION .)
 
 add_library(jitsuyo SHARED
   src/linux.cpp
-  src/config.cpp
   src/cli.cpp)
 
 ament_target_dependencies(jitsuyo gtest_vendor)

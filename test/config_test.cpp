@@ -38,7 +38,7 @@ TEST(ConfigTest, AssignKey)
   std::string output = testing::internal::GetCapturedStdout();
   EXPECT_EQ(
     output,
-    std::string("Failed to assign key test1 to value 42\n")) << "Key must not be found";
+    std::string("Failed to find key `test1`\n")) << "Key must not be found";
 }
 
 TEST(ConfigTest, SaveConfigJson)
@@ -63,8 +63,11 @@ TEST(ConfigTest, SaveConfigOrderedJson)
 
 TEST(ConfigTest, LoadConfig)
 {
-  nlohmann::json data = jitsuyo::load_config(std::string("/tmp/"), std::string("config.json"));
+  nlohmann::json data;
 
+  EXPECT_TRUE(
+    jitsuyo::load_config(std::string("/tmp/"), std::string("config.json"), data))
+    << "Config must be loaded";
   EXPECT_TRUE(data.contains("key")) << "Key must exist";
   EXPECT_EQ(data["key"], 42);
 }

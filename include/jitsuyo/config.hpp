@@ -37,7 +37,7 @@ bool assign_val(const nlohmann::json & i, const std::string & key, T & val)
     it->get_to(val);
     return true;
   }
-  std::cout << "Failed to assign key " << key << " to value " << val << std::endl;
+  std::cout << "Failed to find key `" << key << "`" << std::endl;
   return false;
 }
 
@@ -50,19 +50,31 @@ save_config(
 {
   std::ofstream file(path + file_name, std::ios::out | std::ios::trunc);
   if (!file.is_open()) {
+    std::cout << "Failed to open file `" << path + file_name << "`" << std::endl;
     return false;
   }
-  
+
   file << std::setw(2) << data << std::endl;
   file.close();
   return true;
 }
 
-nlohmann::json load_config(
-  const std::string & path, const std::string & file_name);
-nlohmann::ordered_json load_ordered_config(
-  const std::string & path, const std::string & file_name);
+template<typename T>
+typename std::enable_if<std::is_same<T, nlohmann::json>::value ||
+  std::is_same<T, nlohmann::ordered_json>::value, bool>::type
+load_config(
+  const std::string & path, const std::string & file_name, T & data)
+{
+  std::ifstream file(path + file_name);
+  if (!file.is_open()) {
+    std::cout << "Failed to open file `" << path + file_name << "`" << std::endl;
+    return false;
+  }
 
+  data = T::parse(file);
+  file.close();
+  return true;
+}
 }  // namespace jitsuyo
 
 #endif  // JITSUYO__CONFIG_HPP_
