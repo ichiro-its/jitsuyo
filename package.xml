@@ -3,7 +3,7 @@
 <package format="3">
   <name>jitsuyo</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
+  <description>Utilities Package for ROS 2</description>
   <maintainer email="fernando142311@gmail.com">mob</maintainer>
   <license>MIT</license>
 
