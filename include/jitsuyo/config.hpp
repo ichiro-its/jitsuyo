@@ -30,7 +30,7 @@ namespace jitsuyo
 {
 
 template<typename T>
-bool assign_val(const nlohmann::json & i, const std::string & key, T & val)
+bool assign_val(const nlohmann::json & json, const std::string & key, T & val)
 {
   auto it = i.find(key);
   if (it != i.end()) {
