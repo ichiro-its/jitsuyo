@@ -32,8 +32,8 @@ namespace jitsuyo
 template<typename T>
 bool assign_val(const nlohmann::json & json, const std::string & key, T & val)
 {
-  auto it = i.find(key);
-  if (it != i.end()) {
+  auto it = json.find(key);
+  if (it != json.end()) {
     it->get_to(val);
     return true;
   }
