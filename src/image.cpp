@@ -18,12 +18,21 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef JITSUYO__JITSUYO_HPP_
-#define JITSUYO__JITSUYO_HPP_
-
-#include "jitsuyo/cli.hpp"
-#include "jitsuyo/config.hpp"
 #include "jitsuyo/image.hpp"
-#include "jitsuyo/linux.hpp"
 
-#endif  // JITSUYO__JITSUYO_HPP_
+namespace jitsuyo
+{
+
+void filter_mat(
+  std::shared_ptr<cv::Mat> src, const cv::Mat & input, uint8_t r, uint8_t g, uint8_t b)
+{
+  for (int row = 0; row < src->rows; row++) {
+    for (int col = 0; col < src->cols; col++) {
+      if (input.at<uchar>(row, col) > 0) {
+        src->at<cv::Vec3b>(row, col) = cv::Vec3b(b, g, r);
+      }
+    }
+  }
+}
+
+}  // namespace jitsuyo
