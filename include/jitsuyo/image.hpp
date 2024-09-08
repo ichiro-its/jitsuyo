@@ -26,8 +26,7 @@
 namespace jitsuyo
 {
 
-void filter_mat(
-  std::shared_ptr<cv::Mat> src, const cv::Mat & input, uint8_t r, uint8_t g, uint8_t b);
+void filter_mat(cv::Mat & src, const cv::Mat & input, uint8_t r, uint8_t g, uint8_t b);
 
 }  // namespace jitsuyo
 
