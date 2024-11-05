@@ -18,12 +18,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#ifndef JITSUYO__JITSUYO_HPP_
-#define JITSUYO__JITSUYO_HPP_
+#ifndef JITSUYO__IMAGE_HPP_
+#define JITSUYO__IMAGE_HPP_
 
-#include "jitsuyo/cli.hpp"
-#include "jitsuyo/config.hpp"
-#include "jitsuyo/image.hpp"
-#include "jitsuyo/linux.hpp"
+#include <opencv2/opencv.hpp>
 
-#endif  // JITSUYO__JITSUYO_HPP_
+namespace jitsuyo
+{
+
+void filter_mat(cv::Mat & src, const cv::Mat & input, uint8_t r, uint8_t g, uint8_t b);
+
+}  // namespace jitsuyo
+
+#endif  // JITSUYO__IMAGE_HPP_
