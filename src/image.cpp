@@ -25,10 +25,10 @@ namespace jitsuyo
 
 void filter_mat(cv::Mat & src, const cv::Mat & input, uint8_t r, uint8_t g, uint8_t b)
 {
-  for (int row = 0; row < src->rows; row++) {
-    for (int col = 0; col < src->cols; col++) {
+  for (int row = 0; row < src.rows; row++) {
+    for (int col = 0; col < src.cols; col++) {
       if (input.at<uchar>(row, col) > 0) {
-        src->at<cv::Vec3b>(row, col) = cv::Vec3b(b, g, r);
+        src.at<cv::Vec3b>(row, col) = cv::Vec3b(b, g, r);
       }
     }
   }
