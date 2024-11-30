@@ -97,10 +97,7 @@ void print_parameter(const std::string & key, float value)
 
 void print_parameter(const std::string & key, double value)
 {
-  std::stringstream ss;
-  ss << std::fixed << std::setprecision(2);
-  ss << value << std::setprecision(6) << std::defaultfloat;
-  print_parameter(key, ss.str());
+  print_parameter(key, static_cast<float>(value));
 }
 
 void print_parameter_block(const std::string & key, const std::string & value)
@@ -136,10 +133,7 @@ void print_parameter_block(const std::string & key, float value)
 
 void print_parameter_block(const std::string & key, double value)
 {
-  std::stringstream ss;
-  ss << std::fixed << std::setprecision(2);
-  ss << value << std::setprecision(6) << std::defaultfloat;
-  print_parameter_block(key, ss.str());
+  print_parameter_block(key, static_cast<float>(value));
 }
 
 std::string reset() {return "\033[0m";}
