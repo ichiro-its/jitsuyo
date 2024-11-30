@@ -95,6 +95,14 @@ void print_parameter(const std::string & key, float value)
   print_parameter(key, ss.str());
 }
 
+void print_parameter(const std::string & key, double value)
+{
+  std::stringstream ss;
+  ss << std::fixed << std::setprecision(2);
+  ss << value << std::setprecision(6) << std::defaultfloat;
+  print_parameter(key, ss.str());
+}
+
 void print_parameter_block(const std::string & key, const std::string & value)
 {
   std::cout << fg_white() << "[ ";
@@ -119,6 +127,14 @@ void print_parameter_block(const std::string & key, int value)
 }
 
 void print_parameter_block(const std::string & key, float value)
+{
+  std::stringstream ss;
+  ss << std::fixed << std::setprecision(2);
+  ss << value << std::setprecision(6) << std::defaultfloat;
+  print_parameter_block(key, ss.str());
+}
+
+void print_parameter_block(const std::string & key, double value)
 {
   std::stringstream ss;
   ss << std::fixed << std::setprecision(2);
