@@ -42,11 +42,13 @@ void print_parameter(const std::string & key, const std::string & value);
 void print_parameter(const std::string & key, bool value);
 void print_parameter(const std::string & key, int value);
 void print_parameter(const std::string & key, float value);
+void print_parameter(const std::string & key, double value);
 
 void print_parameter_block(const std::string & key, const std::string & value);
 void print_parameter_block(const std::string & key, bool value);
 void print_parameter_block(const std::string & key, int value);
 void print_parameter_block(const std::string & key, float value);
+void print_parameter_block(const std::string & key, double value);
 
 std::string reset();
 

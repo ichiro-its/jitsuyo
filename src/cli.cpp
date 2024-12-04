@@ -95,6 +95,11 @@ void print_parameter(const std::string & key, float value)
   print_parameter(key, ss.str());
 }
 
+void print_parameter(const std::string & key, double value)
+{
+  print_parameter(key, static_cast<float>(value));
+}
+
 void print_parameter_block(const std::string & key, const std::string & value)
 {
   std::cout << fg_white() << "[ ";
@@ -124,6 +129,11 @@ void print_parameter_block(const std::string & key, float value)
   ss << std::fixed << std::setprecision(2);
   ss << value << std::setprecision(6) << std::defaultfloat;
   print_parameter_block(key, ss.str());
+}
+
+void print_parameter_block(const std::string & key, double value)
+{
+  print_parameter_block(key, static_cast<float>(value));
 }
 
 std::string reset() {return "\033[0m";}
