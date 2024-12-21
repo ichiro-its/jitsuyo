@@ -21,10 +21,13 @@
 #ifndef JITSUYO__CONFIG_HPP_
 #define JITSUYO__CONFIG_HPP_
 
+#include "keisan/angle/angle.hpp"
+
 #include <fstream>
-#include <string>
 #include <iostream>
 #include <nlohmann/json.hpp>
+#include <string>
+#include <type_traits>
 
 namespace jitsuyo
 {
@@ -34,7 +37,12 @@ bool assign_val(const nlohmann::json & json, const std::string & key, T & val)
 {
   auto it = json.find(key);
   if (it != json.end()) {
-    it->get_to(val);
+    if constexpr (std::is_same_v<typename std::remove_reference<decltype(val)>::type, decltype(keisan::Angle<double>())>) {
+      double val_double = it->get<double>();
+      val = keisan::make_degree(val_double);
+    } else {
+      it->get_to(val);
+    }
     return true;
   }
   std::cout << "Failed to find key `" << key << "`" << std::endl;
