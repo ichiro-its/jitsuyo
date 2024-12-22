@@ -12,6 +12,7 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 find_package(gtest_vendor REQUIRED)
+find_package(keisan REQUIRED)
 find_package(OpenCV REQUIRED)
 
 install(DIRECTORY include DESTINATION .)
@@ -21,7 +22,10 @@ add_library(jitsuyo SHARED
   src/linux.cpp
   src/cli.cpp)
 
-ament_target_dependencies(jitsuyo gtest_vendor OpenCV)
+ament_target_dependencies(jitsuyo
+  gtest_vendor
+  keisan
+  OpenCV)
 
 target_include_directories(jitsuyo PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
