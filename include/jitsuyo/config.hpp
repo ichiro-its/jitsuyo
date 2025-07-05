@@ -32,12 +32,14 @@
 namespace jitsuyo
 {
 
-template<typename T>
-bool assign_val(const nlohmann::json & json, const std::string & key, T & val)
+template <typename T>
+bool assign_val_impl(const nlohmann::json & json, const std::string & key, T & val,
+  const std::string & val_name, const std::string & json_name)
 {
   auto it = json.find(key);
   if (it != json.end()) {
-    if constexpr (std::is_same_v<typename std::remove_reference<decltype(val)>::type, decltype(keisan::Angle<double>())>) {
+    if constexpr (std::is_same_v<typename std::remove_reference<decltype(val)>::type,
+                    decltype(keisan::Angle<double>())>) {
       double val_double = it->get<double>();
       val = keisan::make_degree(val_double);
     } else {
@@ -45,16 +47,16 @@ bool assign_val(const nlohmann::json & json, const std::string & key, T & val)
     }
     return true;
   }
-  std::cout << "Failed to find key `" << key << "`" << std::endl;
+  std::cout << "Failed to find key `" << key << "` for variable name `" << val_name << "` in `"
+            << json_name << "`" << std::endl;
   return false;
 }
 
-template<typename T>
+template <typename T>
 typename std::enable_if<std::is_same<T, nlohmann::json>::value ||
-  std::is_same<T, nlohmann::ordered_json>::value, bool>::type
-save_config(
-  const std::string & path, const std::string & file_name,
-  const T & data)
+                          std::is_same<T, nlohmann::ordered_json>::value,
+  bool>::type
+save_config(const std::string & path, const std::string & file_name, const T & data)
 {
   std::ofstream file(path + file_name, std::ios::out | std::ios::trunc);
   if (!file.is_open()) {
@@ -67,11 +69,11 @@ save_config(
   return true;
 }
 
-template<typename T>
+template <typename T>
 typename std::enable_if<std::is_same<T, nlohmann::json>::value ||
-  std::is_same<T, nlohmann::ordered_json>::value, bool>::type
-load_config(
-  const std::string & path, const std::string & file_name, T & data)
+                          std::is_same<T, nlohmann::ordered_json>::value,
+  bool>::type
+load_config(const std::string & path, const std::string & file_name, T & data)
 {
   std::ifstream file(path + file_name);
   if (!file.is_open()) {
@@ -83,6 +85,9 @@ load_config(
   file.close();
   return true;
 }
+
+#define assign_val(json, key, val) assign_val_impl(json, key, val, #val, #json)
+
 }  // namespace jitsuyo
 
 #endif  // JITSUYO__CONFIG_HPP_

@@ -48,8 +48,8 @@ std::string lowercased(std::string str)
   return str;
 }
 
-void clear() {std::cout << "\033[2J\033[2H" << std::endl;}
-void end_line() {std::cout << std::endl;}
+void clear() { std::cout << "\033[2J\033[2H" << std::endl; }
+void end_line() { std::cout << std::endl; }
 
 void print_line()
 {
@@ -57,9 +57,9 @@ void print_line()
             << "================================================================" << std::endl;
 }
 
-void print(const std::string & value) {std::cout << value << std::endl;}
+void print(const std::string & value) { std::cout << value << std::endl; }
 
-void print_error(const std::string & value) {std::cout << fg_red() << value << std::endl;}
+void print_error(const std::string & value) { std::cout << fg_red() << value << std::endl; }
 
 void print_block(const std::string & value)
 {
@@ -136,14 +136,14 @@ void print_parameter_block(const std::string & key, double value)
   print_parameter_block(key, static_cast<float>(value));
 }
 
-std::string reset() {return "\033[0m";}
-std::string fg_white() {return "\033[37m";}
-std::string fg_black() {return "\033[30m";}
-std::string fg_red() {return "\033[31m";}
-std::string fg_green() {return "\033[32m";}
-std::string fg_yellow() {return "\033[33m";}
-std::string fg_blue() {return "\033[34m";}
-std::string fg_magenta() {return "\033[35m";}
-std::string fg_cyan() {return "\033[36m";}
+std::string reset() { return "\033[0m"; }
+std::string fg_white() { return "\033[37m"; }
+std::string fg_black() { return "\033[30m"; }
+std::string fg_red() { return "\033[31m"; }
+std::string fg_green() { return "\033[32m"; }
+std::string fg_yellow() { return "\033[33m"; }
+std::string fg_blue() { return "\033[34m"; }
+std::string fg_magenta() { return "\033[35m"; }
+std::string fg_cyan() { return "\033[36m"; }
 
 }  // namespace jitsuyo

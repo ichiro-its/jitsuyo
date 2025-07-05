@@ -18,16 +18,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#include "jitsuyo/linux.hpp"
+
 #include <sys/stat.h>
 #include <unistd.h>
 
 #include <algorithm>
 #include <fstream>
 #include <sstream>
-#include <string>
 #include <vector>
-
-#include "jitsuyo/linux.hpp"
 
 namespace jitsuyo
 {
@@ -42,9 +41,9 @@ std::string get_host_name()
   return hostname;
 }
 
-std::string get_env(const std::string & env) {return getenv(env.c_str());}
+std::string get_env(const std::string & env) { return getenv(env.c_str()); }
 
-bool is_root() {return getuid() == 0;}
+bool is_root() { return getuid() == 0; }
 
 bool is_directory_exist(const std::string & path)
 {
