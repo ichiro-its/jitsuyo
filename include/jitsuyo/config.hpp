@@ -33,31 +33,58 @@ namespace jitsuyo
 {
 
 template <typename T>
-bool assign_val_impl(const nlohmann::json & json, const std::string & key, T & val,
-  const std::string & val_name, const std::string & json_name)
+bool assign_val_impl(
+  const nlohmann::json & json, const std::string & key, T & val, const std::string & val_name,
+  const std::string & json_name)
 {
   auto it = json.find(key);
   if (it != json.end()) {
-    if constexpr (std::is_same_v<typename std::remove_reference<decltype(val)>::type,
+    if constexpr (std::is_same_v<
+                    typename std::remove_reference<decltype(val)>::type,
                     decltype(keisan::Angle<double>())>) {
+      if (!it->is_number()) {
+        std::cout << "Expected double value at key `" << key << "` for variable name `" << val_name
+                  << "` in `" << json_name << "`" << std::endl;
+        return false;
+      }
+
       double val_double = it->get<double>();
       val = keisan::make_degree(val_double);
     } else {
-      it->get_to(val);
+      try {
+        it->get_to(val);
+      } catch (const std::exception & e) {
+        std::cout << "Error found at key `" << key << "` for variable name `" << val_name
+                  << "` in `" << json_name << "`" << std::endl;
+        std::cout << e.what() << std::endl;
+
+        return false;
+      }
     }
+
     return true;
   }
+
   std::cout << "Failed to find key `" << key << "` for variable name `" << val_name << "` in `"
             << json_name << "`" << std::endl;
   return false;
 }
 
 template <typename T>
-typename std::enable_if<std::is_same<T, nlohmann::json>::value ||
-                          std::is_same<T, nlohmann::ordered_json>::value,
+typename std::enable_if<
+  std::is_same<T, nlohmann::json>::value || std::is_same<T, nlohmann::ordered_json>::value,
   bool>::type
-save_config(const std::string & path, const std::string & file_name, const T & data)
+save_config(
+  const std::string & path, const std::string & file_name, const T & data,
+  bool create_backup = true)
 {
+  if (create_backup) {
+    std::ifstream file(path + file_name, std::ios::in);
+    std::ofstream file_bak(path + file_name + ".bak", std::ios::out | std::ios::trunc);
+    file_bak << file.rdbuf();
+    file_bak.close();
+  }
+
   std::ofstream file(path + file_name, std::ios::out | std::ios::trunc);
   if (!file.is_open()) {
     std::cout << "Failed to open file `" << path + file_name << "`" << std::endl;
@@ -70,12 +97,12 @@ save_config(const std::string & path, const std::string & file_name, const T & d
 }
 
 template <typename T>
-typename std::enable_if<std::is_same<T, nlohmann::json>::value ||
-                          std::is_same<T, nlohmann::ordered_json>::value,
+typename std::enable_if<
+  std::is_same<T, nlohmann::json>::value || std::is_same<T, nlohmann::ordered_json>::value,
   bool>::type
 load_config(const std::string & path, const std::string & file_name, T & data)
 {
-  std::ifstream file(path + file_name);
+  std::ifstream file(path + file_name, std::ios::in);
   if (!file.is_open()) {
     std::cout << "Failed to open file `" << path + file_name << "`" << std::endl;
     return false;
