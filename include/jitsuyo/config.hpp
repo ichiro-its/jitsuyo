@@ -23,9 +23,11 @@
 
 #include "keisan/angle/angle.hpp"
 
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <nlohmann/json.hpp>
+#include <stdexcept>
 #include <string>
 #include <type_traits>
 
@@ -80,7 +82,13 @@ save_config(
 {
   if (create_backup) {
     std::ifstream file(path + file_name, std::ios::in);
-    std::ofstream file_bak(path + file_name + ".bak", std::ios::out | std::ios::trunc);
+    namespace fs = std::filesystem;
+    if (!fs::is_directory((path + "backup/"))) {
+      if (!fs::create_directory(path + "backup/")) {
+        throw std::runtime_error("Failed to create directory `backup/` at path `" + path + "`.");
+      }
+    }
+    std::ofstream file_bak(path + "backup/" + file_name, std::ios::out | std::ios::trunc);
     file_bak << file.rdbuf();
     file_bak.close();
   }
@@ -108,7 +116,13 @@ load_config(const std::string & path, const std::string & file_name, T & data)
     return false;
   }
 
-  data = T::parse(file);
+  try {
+    data = T::parse(file);
+  } catch (std::exception & e) {
+    std::cout << "Failed to parse file `" << path + file_name << "` to json data" << std::endl;
+    return false;
+  }
+
   file.close();
   return true;
 }
