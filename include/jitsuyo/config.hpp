@@ -23,39 +23,76 @@
 
 #include "keisan/angle/angle.hpp"
 
+#include <filesystem>
 #include <fstream>
 #include <iostream>
 #include <nlohmann/json.hpp>
+#include <stdexcept>
 #include <string>
 #include <type_traits>
 
 namespace jitsuyo
 {
 
-template<typename T>
-bool assign_val(const nlohmann::json & json, const std::string & key, T & val)
+template <typename T>
+bool assign_val_impl(
+  const nlohmann::json & json, const std::string & key, T & val, const std::string & val_name,
+  const std::string & json_name)
 {
   auto it = json.find(key);
   if (it != json.end()) {
-    if constexpr (std::is_same_v<typename std::remove_reference<decltype(val)>::type, decltype(keisan::Angle<double>())>) {
+    if constexpr (std::is_same_v<
+                    typename std::remove_reference<decltype(val)>::type,
+                    decltype(keisan::Angle<double>())>) {
+      if (!it->is_number()) {
+        std::cout << "Expected double value at key `" << key << "` for variable name `" << val_name
+                  << "` in `" << json_name << "`" << std::endl;
+        return false;
+      }
+
       double val_double = it->get<double>();
       val = keisan::make_degree(val_double);
     } else {
-      it->get_to(val);
+      try {
+        it->get_to(val);
+      } catch (const std::exception & e) {
+        std::cout << "Error found at key `" << key << "` for variable name `" << val_name
+                  << "` in `" << json_name << "`" << std::endl;
+        std::cout << e.what() << std::endl;
+
+        return false;
+      }
     }
+
     return true;
   }
-  std::cout << "Failed to find key `" << key << "`" << std::endl;
+
+  std::cout << "Failed to find key `" << key << "` for variable name `" << val_name << "` in `"
+            << json_name << "`" << std::endl;
   return false;
 }
 
-template<typename T>
-typename std::enable_if<std::is_same<T, nlohmann::json>::value ||
-  std::is_same<T, nlohmann::ordered_json>::value, bool>::type
+template <typename T>
+typename std::enable_if<
+  std::is_same<T, nlohmann::json>::value || std::is_same<T, nlohmann::ordered_json>::value,
+  bool>::type
 save_config(
-  const std::string & path, const std::string & file_name,
-  const T & data)
+  const std::string & path, const std::string & file_name, const T & data,
+  bool create_backup = true)
 {
+  if (create_backup) {
+    std::ifstream file(path + file_name, std::ios::in);
+    namespace fs = std::filesystem;
+    if (!fs::is_directory((path + "backup/"))) {
+      if (!fs::create_directory(path + "backup/")) {
+        throw std::runtime_error("Failed to create directory `backup/` at path `" + path + "`.");
+      }
+    }
+    std::ofstream file_bak(path + "backup/" + file_name, std::ios::out | std::ios::trunc);
+    file_bak << file.rdbuf();
+    file_bak.close();
+  }
+
   std::ofstream file(path + file_name, std::ios::out | std::ios::trunc);
   if (!file.is_open()) {
     std::cout << "Failed to open file `" << path + file_name << "`" << std::endl;
@@ -67,22 +104,31 @@ save_config(
   return true;
 }
 
-template<typename T>
-typename std::enable_if<std::is_same<T, nlohmann::json>::value ||
-  std::is_same<T, nlohmann::ordered_json>::value, bool>::type
-load_config(
-  const std::string & path, const std::string & file_name, T & data)
+template <typename T>
+typename std::enable_if<
+  std::is_same<T, nlohmann::json>::value || std::is_same<T, nlohmann::ordered_json>::value,
+  bool>::type
+load_config(const std::string & path, const std::string & file_name, T & data)
 {
-  std::ifstream file(path + file_name);
+  std::ifstream file(path + file_name, std::ios::in);
   if (!file.is_open()) {
     std::cout << "Failed to open file `" << path + file_name << "`" << std::endl;
     return false;
   }
 
-  data = T::parse(file);
+  try {
+    data = T::parse(file);
+  } catch (std::exception & e) {
+    std::cout << "Failed to parse file `" << path + file_name << "` to json data" << std::endl;
+    return false;
+  }
+
   file.close();
   return true;
 }
+
+#define assign_val(json, key, val) assign_val_impl(json, key, val, #val, #json)
+
 }  // namespace jitsuyo
 
 #endif  // JITSUYO__CONFIG_HPP_
